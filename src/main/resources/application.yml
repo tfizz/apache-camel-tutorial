@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+camel:
+  component:
+    debezium-mysql:
+      database-server-id: 1001
+      database-server-name: mysql-server-01
+      database-hostname: localhost
+      database-port: 3306
+      database-user: debezium
+      database-password: dbzpass
+      table-include-list: testDB.students
+      database-history-file-filename: ./tmp/dbhistory.dat
+      offset-storage: org.apache.kafka.connect.storage.FileOffsetBackingStore
+      offset-storage-file-name: ./tmp/offset.dat
+      additional-properties:
+        database.allowPublicKeyRetrieval: true
+
+mongodb:
+  user: root
+  password: password
+  host: localhost
+  port: 27017
+  uri: mongodb://${mongodb.user}:${mongodb.password}@${mongodb.host}:${mongodb.port}

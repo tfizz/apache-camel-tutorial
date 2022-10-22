@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql:8.0.31
+    container_name: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_USER=debezium
+      - MYSQL_PASSWORD=dbzpass
+      - MYSQL_ROOT_PASSWORD=password
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root 
+      - MONGO_INITDB_ROOT_PASSWORD=password
+  phpmyadmin:
+    image: docker.io/bitnami/phpmyadmin:5
+    container_name: phpmyadmin
+    ports:
+      - '80:8080'
+      - '443:8443'
+    environment:
+      - DATABASE_HOST=mysql
+    depends_on:
+      - mysql
